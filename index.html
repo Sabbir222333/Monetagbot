@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Task Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            color: #333;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            margin: 10px 0;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #555;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bot Task Manager</h1>
+        <button onclick="task1()">Task 1: Ads Info</button>
+        <button onclick="task2()">Task 2: Auto Ads</button>
+        <button onclick="task3()">Task 3: Coming Soon</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        let adsCount = 0;
+
+        function task1() {
+            const ip = "192.168.1.1"; // Example IP (replace dynamically via backend if needed)
+            const country = "USA"; // Example Country (replace dynamically via backend if needed)
+            document.getElementById("result").innerHTML = `
+                <strong>📊 Ads Seen:</strong> ${adsCount}<br>
+                <strong>🌍 IP Address:</strong> ${ip}<br>
+                <strong>🏴 Country:</strong> ${country}
+            `;
+        }
+
+        function task2() {
+            adsCount++;
+            const adLink = "https://your-ad-link.com"; // Replace with actual ad URL
+            document.getElementById("result").innerHTML = `
+                <strong>Ad ${adsCount}:</strong> <a href="${adLink}" target="_blank">Click here to view</a>
+            `;
+        }
+
+        function task3() {
+            document.getElementById("result").innerHTML = "Task 3 functionality is coming soon!";
+        }
+    </script>
+</body>
+</html>
