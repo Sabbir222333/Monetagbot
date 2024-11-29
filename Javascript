@@ -1,0 +1,33 @@
+// Fetch User IP and Country Using IP Geolocation
+async function getUserInfo() {
+    const apiToken = "YOUR_TOKEN_HERE"; // Replace with your actual API token
+    const url = `https://ipinfo.io?token=${apiToken}`;
+    
+    try {
+        const response = await fetch(url);
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        const ip = data.ip || "Unknown IP";
+        const country = data.country || "Unknown Country";
+
+        // Display IP and Country info
+        document.getElementById("ip-country-result").innerHTML = `
+            <strong>🌍 IP Address:</strong> ${ip}<br>
+            <strong>🏴 Country:</strong> ${country}
+        `;
+    } catch (error) {
+        // Display an error message
+        console.error("Error fetching IP and country info:", error.message);
+        document.getElementById("ip-country-result").innerHTML = `
+            <strong>Error fetching IP and country info.</strong><br>
+            Please check your API token or network connection.
+        `;
+    }
+}
+
+// Call the function to fetch the IP and Country info on page load
+window.onload = getUserInfo;
