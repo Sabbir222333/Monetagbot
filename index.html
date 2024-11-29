@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: url('https://via.placeholder.com/1920x1080.png?text=Monetag+Earnings') no-repeat center center fixed;
+            background: url('background.jpg') no-repeat center center fixed;
             background-size: cover;
             margin: 0;
             padding: 0;
@@ -20,7 +20,7 @@
         }
 
         .container {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             width: 90%;
@@ -61,8 +61,13 @@
             border-radius: 8px;
         }
 
+        .result strong {
+            font-size: 24px;
+            color: #FFD700;
+        }
+
         .result a {
-            color: #007BFF;
+            color: #FFD700;
             text-decoration: none;
         }
 
@@ -75,13 +80,17 @@
 
     <div class="container">
         <h1>Bot Task Manager</h1>
-        <button onclick="task1()">Task 1: Ads Info</button>
-        <button onclick="task2()">Task 2: Auto Ads</button>
-        <button onclick="task3()">Task 3: Coming Soon</button>
+        <button onclick="task2()">View Ads (Task 2)</button>
+        <button onclick="task3()">Coming Soon (Task 3)</button>
 
         <!-- Displaying IP and Country Information -->
         <div class="result" id="result">
             Loading IP and Country Info...
+        </div>
+
+        <!-- Displaying Ad Count -->
+        <div class="result" id="ads-counter">
+            <strong>📊 Ads Seen:</strong> 0
         </div>
     </div>
 
@@ -96,9 +105,8 @@
                 const ip = data.ip;
                 const country = data.country;
 
-                // Display IP and Country info on the homepage
+                // Display IP and Country info immediately on page load
                 document.getElementById("result").innerHTML = `
-                    <strong>📊 Ads Seen:</strong> ${adsCount}<br>
                     <strong>🌍 IP Address:</strong> ${ip}<br>
                     <strong>🏴 Country:</strong> ${country}
                 `;
@@ -110,24 +118,24 @@
         // Call the function to fetch the IP and Country info on page load
         window.onload = getUserInfo;
 
-        function task1() {
-            const ip = "192.168.1.1"; // Example IP (replace dynamically via backend if needed)
-            const country = "USA"; // Example Country (replace dynamically via backend if needed)
-            document.getElementById("result").innerHTML = `
-                <strong>📊 Ads Seen:</strong> ${adsCount}<br>
-                <strong>🌍 IP Address:</strong> ${ip}<br>
-                <strong>🏴 Country:</strong> ${country}
+        // Ad Counter Increment Logic
+        function incrementAdCount() {
+            adsCount++;
+            document.getElementById("ads-counter").innerHTML = `
+                <strong>📊 Ads Seen:</strong> ${adsCount}
             `;
         }
 
+        // Task 2: Simulate Viewing Ads
         function task2() {
-            adsCount++;
+            incrementAdCount();
             const adLink = "https://your-ad-link.com"; // Replace with actual ad URL
             document.getElementById("result").innerHTML = `
                 <strong>Ad ${adsCount}:</strong> <a href="${adLink}" target="_blank">Click here to view</a>
             `;
         }
 
+        // Placeholder for Task 3
         function task3() {
             document.getElementById("result").innerHTML = "Task 3 functionality is coming soon!";
         }
