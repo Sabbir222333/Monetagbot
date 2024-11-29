@@ -74,6 +74,12 @@
         .result a:hover {
             text-decoration: underline;
         }
+
+        .countdown {
+            font-size: 18px;
+            color: #FFD700;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
@@ -81,7 +87,6 @@
     <div class="container">
         <h1>Bot Task Manager</h1>
         <button onclick="startAutoAdShow()">Auto Ad Show</button>
-        <button onclick="showAd()">Show Ad (Task 3)</button>
 
         <!-- Displaying IP and Country Information -->
         <div class="result" id="ip-country-result">
@@ -97,11 +102,15 @@
         <div class="result" id="ad-display">
             No ads viewed yet.
         </div>
+
+        <!-- Countdown Timer -->
+        <div id="countdown-timer" class="countdown"></div>
     </div>
 
     <script>
         let adsCount = 0;
         let autoAdInterval; // Variable to store the interval for automatic ads
+        let countdownInterval; // Variable for countdown timer
 
         // Fetch User IP and Country Using IP Geolocation
         async function getUserInfo() {
@@ -142,30 +151,48 @@
             `;
         }
 
-        // Function to show an ad and increment view count
-        function showAd() {
+        // Function to start the auto ad show with countdown and new ad logic
+        function startAutoAdShow() {
+            showNewAd();
+            // Start an interval to show ads automatically every 15 seconds
+            autoAdInterval = setInterval(() => {
+                // Hide the previous ad
+                document.getElementById("ad-display").innerHTML = "Loading new ad...";
+                setTimeout(() => {
+                    showNewAd(); // Show new ad after 2 seconds delay
+                }, 2000);
+            }, 17000); // 15 seconds for ad show and 2 seconds for transition (17 seconds in total)
+        }
+
+        // Function to display a new ad and increment the ad count
+        function showNewAd() {
             incrementAdCount();
             const adLink = "https://your-ad-link.com"; // Replace with actual ad URL
             document.getElementById("ad-display").innerHTML = `
                 <strong>Ad ${adsCount}:</strong> <a href="${adLink}" target="_blank">Click here to view</a>
             `;
+            startCountdown(15); // Start countdown for 15 seconds when a new ad is shown
         }
 
-        // Start auto ad show when the button is clicked
-        function startAutoAdShow() {
-            // Start an interval to show ads automatically every 15 seconds
-            autoAdInterval = setInterval(() => {
-                incrementAdCount();
-                const adLink = "https://your-ad-link.com"; // Replace with actual ad URL
-                document.getElementById("ad-display").innerHTML = `
-                    <strong>Ad ${adsCount}:</strong> <a href="${adLink}" target="_blank">Click here to view</a>
-                `;
-            }, 15000); // 15 seconds interval for auto showing ads
+        // Function to start a countdown for the ad display
+        function startCountdown(seconds) {
+            let remainingTime = seconds;
+            document.getElementById("countdown-timer").innerHTML = `Ad will change in: ${remainingTime} seconds`;
+
+            countdownInterval = setInterval(() => {
+                remainingTime--;
+                document.getElementById("countdown-timer").innerHTML = `Ad will change in: ${remainingTime} seconds`;
+
+                if (remainingTime <= 0) {
+                    clearInterval(countdownInterval);
+                }
+            }, 1000); // Countdown interval set to 1 second
         }
 
         // Stop auto ad show when the page is refreshed or the user decides to stop
         function stopAutoAdShow() {
             clearInterval(autoAdInterval);
+            clearInterval(countdownInterval);
         }
     </script>
 </body>
