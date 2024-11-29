@@ -5,93 +5,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ad Example</title>
 
-    <!-- Include Monetag Ad Script for the first ad -->
+    <!-- Include Monetag Ad Scripts -->
     <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578216' data-sdk='show_8578216'></script>
-
-    <!-- Include Monetag Ad Script for the second ad (replaced the old script) -->
     <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578218' data-sdk='show_8578218'></script>
 </head>
-<body>
+<body style="font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
 
-    <h1>Ad Example</h1>
-    
-    <!-- Button to show the first ad -->
-    <button onclick="showAd1()">Show Ad 1</button>
+    <h1 style="color: #333;">Ad Showcase</h1>
 
-    <!-- Button to show the second ad -->
-    <button onclick="showAd2()">Show Ad 2</button>
-
-    <!-- Button to show the third ad (direct link) -->
-    <button onclick="showAd3()">Show Ad 3</button>
+    <!-- Buttons for showing ads -->
+    <button onclick="showAd1()" style="background-color: #007BFF; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 20px; cursor: pointer; margin: 10px; width: 80%; max-width: 400px;">Show Ad 1</button>
+    <button onclick="showAd2()" style="background-color: #28a745; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 20px; cursor: pointer; margin: 10px; width: 80%; max-width: 400px;">Show Ad 2</button>
+    <button onclick="showAd3()" style="background-color: #FFC107; color: white; padding: 15px 30px; border: none; border-radius: 8px; font-size: 20px; cursor: pointer; margin: 10px; width: 80%; max-width: 400px;">Show Ad 3</button>
 
     <!-- Container where the ad will be shown -->
-    <div id="ad-container" style="margin-top: 20px; padding: 20px; background-color: #f4f4f4; border-radius: 8px; text-align: center;">
+    <div id="ad-container" style="margin-top: 20px; padding: 20px; background-color: #fff; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
         <!-- Ad content will appear here -->
     </div>
 
     <script>
-        let adsCount = 0;
-        let adDuration = 15; // Ad duration in seconds
-
-        // Function to show the first ad
+        // Function to show Ad 1
         function showAd1() {
-            adsCount++;
-            showAdContent('Ad 1', 'show_8578216');
+            show_8578216().then(() => {
+                document.getElementById('ad-container').innerHTML = 'Ad 1 has been shown!';
+            }).catch((error) => {
+                console.error('Error displaying Ad 1:', error);
+                document.getElementById('ad-container').innerHTML = 'Error displaying Ad 1.';
+            });
         }
 
-        // Function to show the second ad
+        // Function to show Ad 2
         function showAd2() {
-            adsCount++;
-            showAdContent('Ad 2', 'show_8578218');
+            show_8578218().then(() => {
+                document.getElementById('ad-container').innerHTML = 'Ad 2 has been shown!';
+            }).catch((error) => {
+                console.error('Error displaying Ad 2:', error);
+                document.getElementById('ad-container').innerHTML = 'Error displaying Ad 2.';
+            });
         }
 
-        // Function to show the third ad (direct link)
+        // Function to show Ad 3 (Direct Link)
         function showAd3() {
-            adsCount++;
-            const adLink = "https://zireemilsoude.net/4/8578412"; // Third ad direct link
-            document.getElementById('ad-container').innerHTML = `
-                <strong>Ad ${adsCount}:</strong> <a href="${adLink}" target="_blank">Click here to view</a>
-            `;
-            // Automatically move to next ad after 15 seconds
-            setTimeout(autoShowAd, adDuration * 1000);
-        }
-
-        // General function to show Monetag ads
-        function showAdContent(adName, scriptId) {
-            const script = document.createElement('script');
-            script.src = `//niphaumeenses.net/vignette.min.js`;
-            script.setAttribute('data-zone', scriptId);
-            script.setAttribute('data-sdk', `show_${scriptId}`);
-            document.body.appendChild(script);
-
-            script.onload = function () {
-                showAdAfterLoading(adName);
-            };
-        }
-
-        // Function to show ad after it is loaded
-        function showAdAfterLoading(adName) {
-            document.getElementById('ad-container').innerHTML = `
-                <strong>${adName} (Ad ${adsCount}):</strong> Ad is now showing.
-            `;
-            setTimeout(autoShowAd, adDuration * 1000);
-        }
-
-        // Function for automatic ad flow
-        function autoShowAd() {
-            // Check the button clicks, and show the ads accordingly
-            if (adsCount === 0 || adsCount % 3 === 0) {
-                showAd1(); // Show first ad automatically
-            } else if (adsCount % 3 === 1) {
-                showAd2(); // Show second ad automatically
-            } else {
-                showAd3(); // Show third ad automatically
-            }
-        }
-
-        // Start the automatic ad cycle when the page loads
-        window.onload = function () {
-            setTimeout(autoShowAd, 2000); // Start with an auto ad after 2 seconds
+            const adUrl = 'https://zireemilsoude.net/4/8578412';
+            const iframe = document.createElement('iframe');
+            iframe.src = adUrl;
+            iframe.style.width = '100%';
+            iframe.style.height = '400px';
+            iframe.style.border = 'none';
+            document.getElementById('ad-container').innerHTML = ''; // Clear previous ad content
+            document.getElementById('ad-container').appendChild(iframe);
         }
     </script>
 
