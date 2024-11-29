@@ -87,6 +87,7 @@
     <div class="container">
         <h1>Bot Task Manager</h1>
         <button onclick="showAd()">Show Ad</button>
+        <button onclick="startAutoAd()">Auto Ad Show</button>
 
         <!-- Displaying IP and Country Information -->
         <div class="result" id="ip-country-result">
@@ -110,6 +111,8 @@
     <script>
         let adsCount = 0;
         let countdownInterval; // Variable for countdown timer
+        let autoAdInterval; // Variable for auto ad interval
+        let autoAdRunning = false; // Flag to track if auto ad is running
 
         // Fetch User IP and Country Using IP Geolocation
         async function getUserInfo() {
@@ -160,7 +163,7 @@
             startCountdown(15); // Start countdown for 15 seconds when a new ad is shown
         }
 
-        // Function to start a countdown for the ad display
+        // Function to start the countdown for the ad display
         function startCountdown(seconds) {
             let remainingTime = seconds;
             document.getElementById("countdown-timer").innerHTML = `Ad will change in: ${remainingTime} seconds`;
@@ -171,8 +174,28 @@
 
                 if (remainingTime <= 0) {
                     clearInterval(countdownInterval);
+                    setTimeout(() => {
+                        showAd(); // Automatically show new ad after the countdown ends
+                    }, 2000); // Wait for 2 seconds before showing a new ad
                 }
             }, 1000); // Countdown interval set to 1 second
+        }
+
+        // Start the Auto Ad Show
+        function startAutoAd() {
+            if (!autoAdRunning) {
+                autoAdRunning = true;
+                showAd(); // Show the first ad immediately
+                autoAdInterval = setInterval(() => {
+                    showAd(); // Show a new ad every 15 seconds
+                }, 15000); // Show new ad every 15 seconds
+            }
+        }
+
+        // Clear the auto ad interval if needed
+        function stopAutoAd() {
+            clearInterval(autoAdInterval); // Stops the automatic ad showing
+            autoAdRunning = false;
         }
     </script>
 </body>
