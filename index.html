@@ -109,6 +109,8 @@
         </div>
     </div>
 
+    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578096' data-sdk='show_8578096'></script>
+
     <script>
         let adsCount = 0;
         let autoAdInterval;
@@ -146,10 +148,7 @@
         // Show Ad Function
         function showAd() {
             incrementAdCount();
-            const adLink = "https://your-ad-link.com"; // Replace with actual ad URL
-            document.getElementById("ad-display").innerHTML = `
-                <strong>Ad ${adsCount}:</strong> <a href="${adLink}" target="_blank">Click here to view</a>
-            `;
+            showMonetagAd();
         }
 
         // Start Auto Ad Function
@@ -158,35 +157,40 @@
             autoShowAd();
         }
 
+        // Function to show Monetag ad
+        function showMonetagAd() {
+            show_8578096().then(() => {
+                // Increment the ad counter
+                incrementAdCount();
+
+                // Display ad link and countdown
+                const adLink = "https://your-ad-link.com"; // Replace with actual ad URL
+                document.getElementById("ad-display").innerHTML = `
+                    <strong>Ad ${adsCount}:</strong> <a href="${adLink}" target="_blank">Click here to view</a>
+                `;
+
+                document.getElementById("countdown").innerHTML = `Ad Countdown: ${adDuration} seconds`;
+
+                // Set up countdown for ad duration
+                let remainingTime = adDuration;
+                const countdownInterval = setInterval(() => {
+                    remainingTime--;
+                    document.getElementById("countdown").innerHTML = `Ad Countdown: ${remainingTime} seconds`;
+                    if (remainingTime <= 0) {
+                        clearInterval(countdownInterval);
+                        setTimeout(autoShowAd, 2000); // 2 seconds gap between ads
+                    }
+                }, 1000);
+            }).catch((error) => {
+                document.getElementById("ad-display").innerHTML = "<p>Error loading ad.</p>";
+            });
+        }
+
         // Auto Show Ads Every 15 seconds
         function autoShowAd() {
-            const adLink = "https://your-ad-link.com"; // Replace with actual ad URL
-
-            // Show the ad and start the countdown timer
-            document.getElementById("ad-display").innerHTML = `
-                <strong>Ad ${adsCount}:</strong> <a href="${adLink}" target="_blank">Click here to view</a>
-            `;
-            document.getElementById("countdown").innerHTML = `Ad Countdown: ${adDuration} seconds`;
-
-            let remainingTime = adDuration;
-
-            // Countdown timer for ad display
-            const countdownInterval = setInterval(() => {
-                remainingTime--;
-                document.getElementById("countdown").innerHTML = `Ad Countdown: ${remainingTime} seconds`;
-                if (remainingTime <= 0) {
-                    clearInterval(countdownInterval);
-                    incrementAdCount();
-                    // Wait for 2 seconds and show next ad automatically
-                    setTimeout(autoShowAd, 2000);
-                }
-            }, 1000);
-        }
-
-        // Placeholder for Task 3
-        function task3() {
-            document.getElementById("ad-display").innerHTML = "Task 3 functionality is coming soon!";
+            showMonetagAd();
         }
     </script>
+
 </body>
 </html>
