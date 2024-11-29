@@ -1,6 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
+ 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ad Example</title>
+
+    <!-- Include Monetag Ad Script -->
+    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578096' data-sdk='show_8578096'></script>
+</head>
+<bod\>
+
+    <h1>Ad Example</h1>
+    <button onclick="showAd()">Show Ad</button>
+
+    <!-- Container where the ad will be shown -->
+    <div id="ad-container" style="margin-top: 20px; padding: 20px; background-color: #f4f4f4; border-radius: 8px; text-align: center;">
+        <!-- Ad content will appear here -->
+    </div>
+
+    <script>
+        // Function to show the ad
+        function showAd() {
+            console.log('Ad button clicked, attempting to show ad...');
+            
+            // Call the Monetag ad function to show the ad
+            show_8578096().then(() => {
+                // On success, show message that ad has been displayed
+                document.getElementById('ad-container').innerHTML = 'Ad has been shown!';
+            }).catch((error) => {
+                // If there’s an error, log it in the console
+                console.error('Error displaying ad:', error);
+                document.getElementById('ad-container').innerHTML = 'Error displaying ad.';
+            });
+        }
+    </script>
+
+</body>
+</html>  
+    
+    
+    
+    
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ad Manager</title>
