@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
- 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ad Example</title>
@@ -10,12 +8,14 @@
     <!-- Include Monetag Ad Script -->
     <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578096' data-sdk='show_8578096'></script>
 </head>
-<bod\>
+<body>
 
-    <h1>Ad Example</h1>
+    <h1>Monetag Ad Example</h1>
+    
+    <!-- Show Ad Button -->
     <button onclick="showAd()">Show Ad</button>
 
-    <!-- Container where the ad will be shown -->
+    <!-- Ad Container to Display Ad -->
     <div id="ad-container" style="margin-top: 20px; padding: 20px; background-color: #f4f4f4; border-radius: 8px; text-align: center;">
         <!-- Ad content will appear here -->
     </div>
@@ -34,206 +34,6 @@
                 console.error('Error displaying ad:', error);
                 document.getElementById('ad-container').innerHTML = 'Error displaying ad.';
             });
-        }
-    </script>
-
-</body>
-</html>  
-    
-    
-    
-    
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ad Manager</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background: url('uploaded_image.jpg') no-repeat center center fixed;
-            background-size: cover;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            color: white;
-        }
-
-        .container {
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            width: 90%;
-            max-width: 600px;
-            padding: 30px;
-            text-align: center;
-        }
-
-        h1 {
-            font-size: 32px;
-            margin-bottom: 20px;
-        }
-
-        button {
-            background-color: #007BFF;
-            color: white;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
-            font-size: 20px;
-            cursor: pointer;
-            margin: 15px 0;
-            width: 100%;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        .result {
-            margin-top: 20px;
-            font-size: 20px;
-            color: white;
-            text-align: left;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 20px;
-            border-radius: 8px;
-        }
-
-        .result strong {
-            font-size: 24px;
-            color: #FFD700;
-        }
-
-        .result a {
-            color: #FFD700;
-            text-decoration: none;
-        }
-
-        .result a:hover {
-            text-decoration: underline;
-        }
-
-        .countdown {
-            font-size: 18px;
-            color: #FFD700;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1>Ad Manager</h1>
-        <button onclick="showAd()">Show Ad</button>
-        <button onclick="startAutoAd()">Auto Show Ad</button>
-
-        <!-- Displaying IP and Country Information -->
-        <div class="result" id="ip-country-result">
-            Loading IP and Country Info...
-        </div>
-
-        <!-- Displaying Ad Count -->
-        <div class="result" id="ads-counter">
-            <strong>📊 Ads Seen:</strong> 0
-        </div>
-
-        <!-- Ad Display Section -->
-        <div class="result" id="ad-display">
-            No ads viewed yet.
-        </div>
-
-        <!-- Countdown Timer -->
-        <div class="countdown" id="countdown">
-            Ad Countdown: 0 seconds
-        </div>
-    </div>
-
-    <!-- Monetag Ad Script -->
-    <script src="https://niphaumeenses.net/vignette.min.js" data-zone="8578096" data-sdk="show_8578096"></script>
-
-    <script>
-        let adsCount = 0;
-        let autoAdInterval;
-        let adDuration = 15; // Ad duration in seconds
-
-        // Fetch User IP and Country Using IP Geolocation
-        async function getUserInfo() {
-            try {
-                const response = await fetch("https://ipinfo.io?token=YOUR_TOKEN_HERE");
-                const data = await response.json();
-                const ip = data.ip;
-                const country = data.country;
-
-                // Display IP and Country info immediately on page load
-                document.getElementById("ip-country-result").innerHTML = `
-                    <strong>🌍 IP Address:</strong> ${ip}<br>
-                    <strong>🏴 Country:</strong> ${country}
-                `;
-            } catch (error) {
-                document.getElementById("ip-country-result").innerHTML = "Error fetching IP and country info.";
-            }
-        }
-
-        // Call the function to fetch the IP and Country info on page load
-        window.onload = getUserInfo;
-
-        // Ad Counter Increment Logic
-        function incrementAdCount() {
-            adsCount++;
-            document.getElementById("ads-counter").innerHTML = `
-                <strong>📊 Ads Seen:</strong> ${adsCount}
-            `;
-        }
-
-        // Show Ad Function
-        function showAd() {
-            incrementAdCount();
-            showMonetagAd();
-        }
-
-        // Start Auto Ad Function
-        function startAutoAd() {
-            incrementAdCount();
-            autoShowAd();
-        }
-
-        // Function to show Monetag ad
-        function showMonetagAd() {
-            // Make sure Monetag's show_8578096 function is called
-            show_8578096().then(() => {
-                // Increment the ad counter
-                incrementAdCount();
-
-                // Display ad link and countdown
-                const adLink = "https://your-ad-link.com"; // Replace with actual ad URL
-                document.getElementById("ad-display").innerHTML = `
-                    <strong>Ad ${adsCount}:</strong> <a href="${adLink}" target="_blank">Click here to view</a>
-                `;
-
-                document.getElementById("countdown").innerHTML = `Ad Countdown: ${adDuration} seconds`;
-
-                // Set up countdown for ad duration
-                let remainingTime = adDuration;
-                const countdownInterval = setInterval(() => {
-                    remainingTime--;
-                    document.getElementById("countdown").innerHTML = `Ad Countdown: ${remainingTime} seconds`;
-                    if (remainingTime <= 0) {
-                        clearInterval(countdownInterval);
-                        setTimeout(autoShowAd, 2000); // 2 seconds gap between ads
-                    }
-                }, 1000);
-            }).catch((error) => {
-                document.getElementById("ad-display").innerHTML = "<p>Error loading ad.</p>";
-            });
-        }
-
-        // Auto Show Ads Every 15 seconds
-        function autoShowAd() {
-            showMonetagAd();
         }
     </script>
 
