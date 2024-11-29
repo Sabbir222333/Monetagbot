@@ -80,8 +80,8 @@
 
     <div class="container">
         <h1>Bot Task Manager</h1>
-        <button onclick="task2()">View Ads (Task 2)</button>
-        <button onclick="task3()">Coming Soon (Task 3)</button>
+        <button onclick="autoShowAd()">Auto Ad Show</button>
+        <button onclick="showAd()">Show Ad (Task 3)</button>
 
         <!-- Displaying IP and Country Information -->
         <div class="result" id="ip-country-result">
@@ -141,8 +141,8 @@
             `;
         }
 
-        // Task 2: Simulate Viewing Ads
-        function task2() {
+        // Function to show an ad and increment view count
+        function autoShowAd() {
             incrementAdCount();
             const adLink = "https://your-ad-link.com"; // Replace with actual ad URL
             document.getElementById("ad-display").innerHTML = `
@@ -150,9 +150,13 @@
             `;
         }
 
-        // Placeholder for Task 3
-        function task3() {
-            document.getElementById("ad-display").innerHTML = "Task 3 functionality is coming soon!";
+        // Show a new ad each time Task 3 is clicked and update the view count
+        function showAd() {
+            incrementAdCount();
+            const adLink = "https://your-ad-link.com"; // Replace with actual ad URL
+            document.getElementById("ad-display").innerHTML = `
+                <strong>Ad ${adsCount}:</strong> <a href="${adLink}" target="_blank">Click here to view</a>
+            `;
         }
     </script>
 </body>
