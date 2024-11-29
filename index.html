@@ -86,7 +86,7 @@
 
     <div class="container">
         <h1>Bot Task Manager</h1>
-        <button onclick="startAutoAdShow()">Auto Ad Show</button>
+        <button onclick="showAd()">Show Ad</button>
 
         <!-- Displaying IP and Country Information -->
         <div class="result" id="ip-country-result">
@@ -109,7 +109,6 @@
 
     <script>
         let adsCount = 0;
-        let autoAdInterval; // Variable to store the interval for automatic ads
         let countdownInterval; // Variable for countdown timer
 
         // Fetch User IP and Country Using IP Geolocation
@@ -151,21 +150,8 @@
             `;
         }
 
-        // Function to start the auto ad show with countdown and new ad logic
-        function startAutoAdShow() {
-            showNewAd();
-            // Start an interval to show ads automatically every 15 seconds
-            autoAdInterval = setInterval(() => {
-                // Hide the previous ad
-                document.getElementById("ad-display").innerHTML = "Loading new ad...";
-                setTimeout(() => {
-                    showNewAd(); // Show new ad after 2 seconds delay
-                }, 2000);
-            }, 17000); // 15 seconds for ad show and 2 seconds for transition (17 seconds in total)
-        }
-
-        // Function to display a new ad and increment the ad count
-        function showNewAd() {
+        // Function to show a new ad
+        function showAd() {
             incrementAdCount();
             const adLink = "https://your-ad-link.com"; // Replace with actual ad URL
             document.getElementById("ad-display").innerHTML = `
@@ -187,12 +173,6 @@
                     clearInterval(countdownInterval);
                 }
             }, 1000); // Countdown interval set to 1 second
-        }
-
-        // Stop auto ad show when the page is refreshed or the user decides to stop
-        function stopAutoAdShow() {
-            clearInterval(autoAdInterval);
-            clearInterval(countdownInterval);
         }
     </script>
 </body>
