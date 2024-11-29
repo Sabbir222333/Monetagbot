@@ -1,22 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
-
-show_8578225().then(() => {
-    // You need to add your user reward function here, which will be executed after the user watches the ad.
-    // For more details, please refer to the detailed instructions.
-    alert('You have seen ad ad!');
-})
-        
-
-
-
-    
-    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578096' data-sdk='show_8578096'></script>
-<script src='//niphaumeenses.net/vignette.min.js' data-zone='8578096' data-sdk='show_8578096'></script>
-
-    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ad Manager</title>
@@ -125,7 +109,8 @@ show_8578225().then(() => {
         </div>
     </div>
 
-    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578096' data-sdk='show_8578096'></script>
+    <!-- Monetag Ad Script -->
+    <script src="https://niphaumeenses.net/vignette.min.js" data-zone="8578096" data-sdk="show_8578096"></script>
 
     <script>
         let adsCount = 0;
@@ -175,6 +160,7 @@ show_8578225().then(() => {
 
         // Function to show Monetag ad
         function showMonetagAd() {
+            // Make sure Monetag's show_8578096 function is called
             show_8578096().then(() => {
                 // Increment the ad counter
                 incrementAdCount();
