@@ -7,7 +7,7 @@
 
     <!-- Include Monetag Ad Scripts -->
     <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578216' data-sdk='show_8578216'></script> <!-- First ad code -->
-    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578096' data-sdk='show_8578096'></script> <!-- Second ad code (different zone) -->
+    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578096' data-sdk='show_8578096'></script> <!-- Second ad code -->
 </head>
 <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
 
@@ -44,7 +44,7 @@
             });
         }
 
-        // Function to show Ad 3 (Direct Link in iframe)
+        // Function to show Ad 3 (Direct Link in iframe, ensuring it's displayed properly inside mini app)
         function showAd3() {
             const adUrl = 'https://zireemilsoude.net/4/8578412';
             const iframe = document.createElement('iframe');
@@ -53,8 +53,10 @@
             iframe.style.height = '400px';
             iframe.style.border = 'none';
             iframe.style.display = 'block'; // Ensure it is displayed as a block
-            document.getElementById('ad-container').innerHTML = ''; // Clear previous ad content
-            document.getElementById('ad-container').appendChild(iframe); // Embed the iframe within the ad container
+
+            // Clear previous ad content and append the new iframe ad content
+            document.getElementById('ad-container').innerHTML = ''; 
+            document.getElementById('ad-container').appendChild(iframe); 
         }
     </script>
 
