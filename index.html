@@ -7,104 +7,105 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
-            background-color: #f0f0f0;
-        }
-        .container {
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            display: inline-block;
-            width: 80%;
-            margin-top: 20px;
-        }
-        h1 {
-            font-size: 28px;
-            color: #333;
-        }
-        .button-container {
-            margin-top: 30px;
-        }
-        .button-container button {
-            font-size: 18px;
-            padding: 10px 20px;
-            margin: 10px;
-            border-radius: 5px;
-            border: none;
-            cursor: pointer;
-            background-color: #007bff;
+            background: url('uploaded_image.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
             color: white;
         }
-        .button-container button:hover {
+
+        .container {
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 600px;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 32px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 15px 0;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
             background-color: #0056b3;
         }
-        .info {
-            margin-top: 15px;
-            font-size: 18px;
-            color: #555;
-        }
-        .error {
-            color: red;
-            font-size: 18px;
-        }
-        #ads-seen {
+
+        .result {
             margin-top: 20px;
             font-size: 20px;
-            font-weight: bold;
+            color: white;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 20px;
+            border-radius: 8px;
         }
-        #ads-seen span {
-            color: yellow;
+
+        .result strong {
+            font-size: 24px;
+            color: #FFD700;
+        }
+
+        .result a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+
+        .result a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
+
     <div class="container">
         <h1>Bot Task Manager</h1>
+        <button onclick="task2()">View Ads (Task 2)</button>
+        <button onclick="task3()">Coming Soon (Task 3)</button>
 
-        <!-- Task Buttons -->
-        <div class="button-container">
-            <button id="task-1-btn">View Ads (Task 2)</button>
-            <button id="task-2-btn">Coming Soon (Task 3)</button>
+        <!-- Displaying IP and Country Information -->
+        <div class="result" id="ip-country-result">
+            Loading IP and Country Info...
         </div>
 
-        <!-- IP & Country Info -->
-        <div id="ip-country-result" class="info">Loading IP and Country...</div>
-
-        <!-- Ads Seen Info -->
-        <div id="ads-seen">
-            <p>Ads Seen: <span id="ad-count">0</span></p>
+        <!-- Displaying Ad Count -->
+        <div class="result" id="ads-counter">
+            <strong>📊 Ads Seen:</strong> 0
         </div>
 
-        <div id="ad-1" class="info">
-            <strong>Ad 1:</strong> <button onclick="viewAd(1)">Click here to view</button>
-        </div>
-        <div id="ad-2" class="info">
-            <strong>Ad 2:</strong> <button onclick="viewAd(2)">Click here to view</button>
-        </div>
-        <div id="ad-3" class="info">
-            <strong>Ad 3:</strong> <button onclick="viewAd(3)">Click here to view</button>
+        <!-- Ad Display Section -->
+        <div class="result" id="ad-display">
+            No ads viewed yet.
         </div>
     </div>
 
     <script>
-        // Initialize the ad count
-        let adCount = 0;
+        let adsCount = 0;
 
-        // Function to handle ad clicks and increment ad count
-        function viewAd(adNumber) {
-            adCount++;
-            document.getElementById("ad-count").textContent = adCount;
-            console.log(`Ad ${adNumber} viewed`);
-        }
-
-        // Fetch IP and Country Information
-        async function fetchIPAndCountry() {
-            const apiURL = "https://ipapi.co/json"; // API for IP and country info
-
+        // Fetch User IP and Country Using IP Geolocation
+        async function getUserInfo() {
             try {
-                const response = await fetch(apiURL);
+                const response = await fetch("https://ipapi.co/json"); // Using a free API for IP and country info
                 if (!response.ok) {
                     throw new Error(`HTTP Error: ${response.status}`);
                 }
@@ -113,24 +114,46 @@
                 const ip = data.ip || "Unavailable";
                 const country = data.country_name || "Unavailable";
 
-                // Display IP and Country Info
+                // Display IP and Country info immediately on page load
                 document.getElementById("ip-country-result").innerHTML = `
                     <strong>🌍 IP Address:</strong> ${ip}<br>
                     <strong>🏴 Country:</strong> ${country}
                 `;
             } catch (error) {
                 console.error("Error fetching IP and country:", error);
+
+                // Show error message
                 document.getElementById("ip-country-result").innerHTML = `
-                    <span class="error">Error: Unable to fetch IP and country information.</span><br>
+                    <strong>Error:</strong> Unable to fetch IP and country information.<br>
                     Please check your connection.
                 `;
             }
         }
 
-        // Call the function on page load
-        window.onload = function() {
-            fetchIPAndCountry();
-        };
+        // Call the function to fetch the IP and Country info on page load
+        window.onload = getUserInfo;
+
+        // Ad Counter Increment Logic
+        function incrementAdCount() {
+            adsCount++;
+            document.getElementById("ads-counter").innerHTML = `
+                <strong>📊 Ads Seen:</strong> ${adsCount}
+            `;
+        }
+
+        // Task 2: Simulate Viewing Ads
+        function task2() {
+            incrementAdCount();
+            const adLink = "https://your-ad-link.com"; // Replace with actual ad URL
+            document.getElementById("ad-display").innerHTML = `
+                <strong>Ad ${adsCount}:</strong> <a href="${adLink}" target="_blank">Click here to view</a>
+            `;
+        }
+
+        // Placeholder for Task 3
+        function task3() {
+            document.getElementById("ad-display").innerHTML = "Task 3 functionality is coming soon!";
+        }
     </script>
 </body>
 </html>
