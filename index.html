@@ -6,8 +6,8 @@
     <title>Ad Example</title>
 
     <!-- Include Monetag Ad Scripts -->
-    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578216' data-sdk='show_8578216'></script>
-    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578096' data-sdk='show_8578096'></script> <!-- First ad code unchanged -->
+    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578216' data-sdk='show_8578216'></script> <!-- First ad code -->
+    <script src='//niphaumeenses.net/vignette.min.js' data-zone='8578096' data-sdk='show_8578096'></script> <!-- Second ad code (different zone) -->
 </head>
 <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
 
@@ -24,7 +24,7 @@
     </div>
 
     <script>
-        // Function to show Ad 1
+        // Function to show Ad 1 (Using the first ad code)
         function showAd1() {
             show_8578216().then(() => {
                 document.getElementById('ad-container').innerHTML = 'Ad 1 has been shown!';
@@ -34,9 +34,9 @@
             });
         }
 
-        // Function to show Ad 2 (Updated with the new ad code)
+        // Function to show Ad 2 (Using the second ad code, different zone)
         function showAd2() {
-            show_8578216().then(() => {
+            show_8578096().then(() => {
                 document.getElementById('ad-container').innerHTML = 'Ad 2 has been shown!';
             }).catch((error) => {
                 console.error('Error displaying Ad 2:', error);
